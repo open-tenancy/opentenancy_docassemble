@@ -1,8 +1,7 @@
 # docassemble
 
-A docassemble extension.
+a docassemble extension for opentenancy.
 
 ## Author
-
-System Administrator, admin@admin.com
+[Amy Conroy](https://github.com/amyconroy) | [Anastasia Shmyglia](https://github.com/a-shmyg)
 
