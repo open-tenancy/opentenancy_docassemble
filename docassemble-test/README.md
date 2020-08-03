@@ -1,4 +1,4 @@
-# docassemble.test
+# docassemble
 
 A docassemble extension.
 
