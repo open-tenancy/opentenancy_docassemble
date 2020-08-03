@@ -1,0 +1,53 @@
+mandatory: True
+code: |
+  if repairs_start: 
+    if sevenyears: 
+      if repairtype == 'damp':
+        damp_start
+    else: 
+      sorry
+  else:
+    verbal_tenancy
+---
+id: repairs_start
+question: |
+  So you have a repairs issue! We're going to ask you a few questions to give you the best possible advice.
+subquestion: |
+  Do you have a written tenancy agreement (a contract between you and your landlord)?
+yesno: repairs_start
+--- 
+mandatory: True
+id: tenancylength
+question: | 
+  That's great that you have a written contract. Is your tenancy less than 7 years or is it a periodic tenancy?   
+yesno: sevenyears
+under: |
+  A periodic tenancy means that it rolls over on either a weekly or monthly basis and has no fixed end date. It doesn't necessarily have to have started as a periodic tenancy, but could have rolled over at the end of a fixed term contract. 
+---
+id: sorry
+question: |
+  As your tenancy is longer than 7 years it sounds like you do not have any rights for repairs under the Landlord and Tenant Act 1985.
+subquestion: |
+  This means that you are likely to be responsible for those those repairs unless your tenancy agreement says otherwise. 
+field: sorry
+choices:
+  - Start Again: disclaimer_question
+  - Exit: exit
+---
+mandatory: True
+question: |
+  Select below which category best describes the type of repair that you need advice for. 
+field: repairtype
+choices: 
+  - INTERIOR; Repair relating to the supply of gas, electricity, sanitation, space heating and heating water, or water : interior
+    help: This includes things like boilers, radiators, water tanks, baths, sinks, and the pipes for gas and water, as well as electric sockets and wiring throughout the property. 
+  - EXTERIOR; Repair relating to a structural problem for the property : exterior
+    help: This might include damage such as exterior walls, structural problems to windows and doors, the roof, as well as drains and exterior pipes.
+  - FURNITURE; Repair relating to any furniture in the property : furniture
+  - ELECTRICAL; Repair relating to electrical appliances : electrical
+  - DECORATION; Repair relating to decoration for the property : decoration
+  - DAMP or MOULD; Repair relating to dampness or mould : damp
+  - OTHER; Any other type of repair : other
+---
+include: 
+  - dampmould.yml
