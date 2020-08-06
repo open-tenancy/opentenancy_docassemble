@@ -1,4 +1,4 @@
 .navbar {
-  background-color: linear-gradient(90deg, rgba(255,169,6,1) 0%, rgba(255,238,118,1) 100%, rgba(0,212,255,1) 100%);
+  background-image: linear-gradient(90deg, rgba(255,169,6,1) 0%, rgba(255,238,118,1) 100%, rgba(0,212,255,1) 100%)
   color: black;
 }
