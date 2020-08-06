@@ -42,19 +42,19 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
                 out.setdefault(package, []).append(prefix+name)
     return out
 
-setup(name='docassemble.test',
+setup(name='docassemble.openTenancy',
       version='0.0.1',
       description=('A docassemble extension.'),
-      long_description='# docassemble.test\n\nA docassemble extension.\n\n## Author\n\nSystem Administrator, admin@admin.com\n\n',
+      long_description='# docassemble.openTenancy\n\nA docassemble extension.\n\n## Author\n\nAmy Conroy, amyeileenconroy@gmail.com\n\n',
       long_description_content_type='text/markdown',
-      author='System Administrator',
-      author_email='admin@admin.com',
+      author='Amy Conroy',
+      author_email='amyeileenconroy@gmail.com',
       license='The MIT License (MIT)',
       url='https://docassemble.org',
       packages=find_packages(),
       namespace_packages=['docassemble'],
-      install_requires=[''],
+      install_requires=[],
       zip_safe=False,
-      package_data=find_package_data(where='docassemble/test/', package='docassemble.test'),
+      package_data=find_package_data(where='docassemble/openTenancy/', package='docassemble.openTenancy'),
      )
 
