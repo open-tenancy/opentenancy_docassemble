@@ -13,6 +13,7 @@ metadata:
 features:
   hide standard menu: True
   javascript: js-test.js
+  css: main.css
 ---
 order:
   - disclaimer question
