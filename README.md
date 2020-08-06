@@ -1,7 +1,8 @@
-# docassemble
+# docassemble.openTenancy
 
-a docassemble extension for opentenancy.
+A docassemble extension.
 
 ## Author
-[Amy Conroy](https://github.com/amyconroy) | [Anastasia Shmyglia](https://github.com/a-shmyg)
+
+Amy Conroy, amyeileenconroy@gmail.com
 

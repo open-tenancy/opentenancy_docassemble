@@ -1,0 +1,133 @@
+question: |
+  Have you told your landlord about your damp or mould issue? 
+field: damp_start
+yesno: damp_start
+---
+mandatory: True
+code: |
+  if damp_start: 
+    landlord_answer
+  else: 
+    report_landlord
+--- 
+question: |
+  Has your landlord responded to your repair request? 
+field: landlord_answer
+yesno: landlord_answer
+---
+mandatory: True
+code: |
+  if landlord_answer: 
+    check_response
+  else: 
+    check_date
+    if deadline_passed:
+        if health_noresponse: 
+          if council: 
+            next_steps
+        else: 
+         responsible
+         if health: 
+           if council: 
+              next_steps
+           else: 
+              council_contact
+              if councilContactDoc:
+                councildoc
+    else:
+      deadline_upcoming
+---
+question: |
+  In order to ensure that your landlord is aware that there is a damp or mould issue, it is suggested that you first contact your landlord to let them know. 
+subquestion: |
+  Your landlord must respond to you within 14 days if your tenancy began after 1st October 2015, they must also state what action they are going to take. 
+field: report_landlord
+sets: all_done
+---
+question: |
+  When did you talk to your landlord about your repairs? 
+fields: 
+  - Date: check_date
+    datatype: date
+---
+mandatory: True
+code: |
+  response_deadline = check_date.plus(days = 14)
+  today = today()
+  if today > response_deadline: 
+    deadline_passed = True
+  else: 
+    deadline_passed = False
+--- 
+mandatory: True
+field: deadline_gone
+question: |
+  Your landlord should have responded by now. They should respond within 14 days.
+subquestion: |
+  Does the damp or mould in your rented home affect your health?
+yesno: health_noresponse
+under: |
+  This might mean that the mould is so bad that it is seriously affecting your health or your ability to live in some rooms of our home. 
+---
+field: check_responsibility
+question: |
+  Your landlord has to make sure that your house is safe for you to live in.
+subquestion: |
+  However, this right may be affected if you are responsible for causing the damp or mould. This may be by not looking after the house correctly, like not turning the extractor fan on after showering. Was the damp or mould caused by yourself?
+yesno: check_responsibility
+---
+field: next_steps
+question: | 
+   At this point you have contacted your landlord and waited 14 days and also attempted to get help through the council. 
+subquestion: |
+  We recommend either filing a complaint with your local council if you were not happy with their decision and ask them to look at their decision once more. This could be helpful if you think that they did not give enough care to look at your porblem. However, you can also contact your nearest Citizens Advice as a next step. 
+sets: all_done
+---
+field: local_authority
+question: | 
+  If the problem is affecting your health and you have not received an appropriate response from your landlord (explaining how or when they will fix the issue) within 14 days, we would recommend contacting the Environmental Health department at your local council. 
+subquestion: |
+ Have you attempted to contact the council? 
+yesno: council
+under: |
+  If you have a tenancy that started after 1 October 2015 then you are protected from being evicted by your landlord if you filed a complaint about repairs not being completed, and they did not respond with a good response within 14 days. 
+---
+field: council_contact
+question: |
+  We would recommend that you contact the Environmental Health department at your local council since the mould is affect your health and you have attempted to contact your landlord and have it fixed, as well as waited the necessary 14 days. 
+subquestion: |
+  Would you like a document summarising your request?
+yesno: councilContactDoc
+---
+mandatory: True
+code: |
+  if councilContactDoc: 
+    councilDoc
+  else: 
+    all_done
+---
+event: councilDoc
+question: Please find below a summary of your advice from openTenancy.
+attachments:
+  - name: openTenancy Advice
+    filename: openTenancyAdvice
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
+      We would recommend that you contact your the Environmental Health department at your local council since the mould is affect your health and you have attempted to contact your landlord and have it fixed, as well as waited the necessary 14 days. 
+      Even if you are responsible for the cause of the damp or mould, if it is affecting your health then your landlord still must ensure that it is fixed in an appropriate amount of time. 
+      If you are not happy with the councils response, we would then recommend either filing a complaint with your local council if you were not happy with their decision and ask them to look at their decision once more. This could be helpful if you think that they did not give enough care to look at your porblem. However, you can also contact your nearest Citizens Advice as a next step. 
+      Finally, if you have a tenancy that started after 1 October 2015 then you would have protection against being evicted in response to your complaint to the council by your landlord. In addition, they can not evict you in response to your repair request if they failed to issue an adequate response in 14 days. To be adequate, the response must be in writing and set out the action to be taken and a reasonable timetable for carrying out that action
+mandatory: True
+---
+field: responsible
+question: | 
+  Even though you are responsible for the cause of the damp or mould, if it is affecting your health then your landlord still must ensure that it is fixed in an appropriate amount of time. 
+subquestion: |
+  Is the damp or mould affecting your health? 
+yesno: health
+---
+field: all_done
+code: |
+  command('exit')
