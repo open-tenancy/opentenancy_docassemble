@@ -57,4 +57,3 @@ setup(name='docassemble.openTenancy',
       zip_safe=False,
       package_data=find_package_data(where='docassemble/openTenancy/', package='docassemble.openTenancy'),
      )
-
