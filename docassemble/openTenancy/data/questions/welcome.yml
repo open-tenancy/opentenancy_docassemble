@@ -1,53 +1,54 @@
 metadata:
   title: |
-    openTenancy
+    openTenancy 
   short title: |
     tenancy advice
   exit label: |
-    Exit
+    Exit 
   authors:
     - name: Amy Conroy
       organization: openTenancy
   revision_date: 2020-07-21
 ---
-features:
-  hide standard menu: True
-  javascript: js-test.js
-  css: main.css
----
 order:
   - disclaimer question
   - category question
 ---
-id: disclaimer question
+image sets:
+  freepik:
+    images:
+      logo: opentenancy.png
+---
+id: disclaimer_question
 mandatory: True
 question: |
-  Your use of this system does not
-  mean that you have a lawyer.  Do
-  you understand this?
+  # Welcome to openTenancy!
+subquestion: |
+  [FILE opentenancy.png, 60%]
+  ### Your use of this system does not mean that you have a lawyer.  
+  ### Do you understand this?
 yesno: understands
 ---
 mandatory: True
 code: |
-  if understands:
+  if understands: 
     welcome_question
-  else:
+  else: 
     legal_clarity
 ---
 mandatory: True
 id: category question
 question: |
-  Welcome to openTenancy! Over the next few minutes please help us to target the advice to you by answering a few simple questions.
+  ## We're almost ready to get started! 
 subquestion: |
-  Which category best describes your issue?
+  ### Over the next few minutes please help us to target the advice to you by answering a few simple questions. 
+  [FILE giphy.gif]
+  ### Which category best describes your issue?
 field: welcome_question
 choices:
   - Repairs: repairs
     help: |
       Leaks, mold, appliances, etc.
-  - Council Tax: council tax
-    help: |
-      Any issues with paying council tax.
   - Other: other
     help: |
       Any other issue.
@@ -56,18 +57,21 @@ mandatory: True
 code: |
   if welcome_question == 'repairs':
     repairs_start
-  elif welcome_question == 'council tax':
-    repairs_start
   elif welcome_question == 'other':
     repairs_start
 ---
+mandatory: True
+code: |
+  if tryagain: 
+      del disclaimer_question
+---
 question: |
-  Unfourtantely the advice on this page does not consitute binding legal advice, or replace having a lawyer of your own.
-subquestion: However, what we do instead is simplify the abundance of information and save you time. If you're interested in finding out more about is, please go to our About page. Or if you understand now, you can start the interview again.
+  The advice from openTenancy does not consitute binding legal advice, nor does openTenancy act as a lawyer.
+subquestion: However, what we do instead is help you sift through all the available information. If you're interested in finding out more about us, please go to our About page. Or if you would prefer, you can start the interview again. 
 event: legal_clarity
 choices:
-  - Start Again: disclaimer_question
+  - Start Again: tryagain
   - Exit: exit
 ---
-include:
+include: 
   - repairs.yml

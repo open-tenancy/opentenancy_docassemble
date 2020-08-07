@@ -9,24 +9,32 @@ code: |
   else:
     verbal_tenancy
 ---
+terms:
+  tenancy agreement: |
+    This is a contract between you and your landlord. A tenancy agreement can be written OR verbal. This means that you and your landlord both made arrangements to allow you to live at the property. 
+  periodic tenancy: |
+    A periodic tenancy means that it rolls over on either a weekly or monthly   basis and has no fixed end date. It doesn't necessarily have to have started as a periodic tenancy, but could have rolled over at the end of a fixed term contract. 
+---
 id: repairs_start
 question: |
-  So you have a repairs issue! We're going to ask you a few questions to give you the best possible advice.
+  ## So you have a repairs issue, hopefully we can help to fix that!   [FILE repairs.png, 10%]
+  ### We're going to ask you a few questions to give you the best possible advice.
 subquestion: |
-  Do you have a written tenancy agreement (a contract between you and your landlord)?
+  ### Do you have a {tenancy agreement}?
 yesno: repairs_start
+under: |
+  DID YOU KNOW: Just because your tenancy agreement says that you are not entitled to something, if you are under the law then that point in your contract can't be enforced. Your legal rights as a tenant are absolute - no matter what is in your tenancy agreement. 
 --- 
 mandatory: True
 id: tenancylength
 question: | 
-  That's great that you have a written contract. Is your tenancy less than 7 years or is it a periodic tenancy?   
+  ## That's great that you have a tenancy agreement. 
+  ### Is your tenancy less than 7 years AND/OR is it a {periodic tenancy}?   
 yesno: sevenyears
-under: |
-  A periodic tenancy means that it rolls over on either a weekly or monthly basis and has no fixed end date. It doesn't necessarily have to have started as a periodic tenancy, but could have rolled over at the end of a fixed term contract. 
 ---
 id: sorry
 question: |
-  As your tenancy is longer than 7 years it sounds like you do not have any rights for repairs under the Landlord and Tenant Act 1985.
+  As your tenancy is longer than 7 years it sounds like you do not have any rights for reapirs under the Landlord and Tenant Act 1985.
 subquestion: |
   This means that you are likely to be responsible for those those repairs unless your tenancy agreement says otherwise. 
 field: sorry
@@ -39,13 +47,6 @@ question: |
   Select below which category best describes the type of repair that you need advice for. 
 field: repairtype
 choices: 
-  - INTERIOR; Repair relating to the supply of gas, electricity, sanitation, space heating and heating water, or water : interior
-    help: This includes things like boilers, radiators, water tanks, baths, sinks, and the pipes for gas and water, as well as electric sockets and wiring throughout the property. 
-  - EXTERIOR; Repair relating to a structural problem for the property : exterior
-    help: This might include damage such as exterior walls, structural problems to windows and doors, the roof, as well as drains and exterior pipes.
-  - FURNITURE; Repair relating to any furniture in the property : furniture
-  - ELECTRICAL; Repair relating to electrical appliances : electrical
-  - DECORATION; Repair relating to decoration for the property : decoration
   - DAMP or MOULD; Repair relating to dampness or mould : damp
   - OTHER; Any other type of repair : other
 ---
