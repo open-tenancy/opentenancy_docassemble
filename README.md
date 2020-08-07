@@ -1,8 +1,6 @@
 # docassemble.openTenancy
 
-A docassemble extension.
+a docassemble extension for the openTenancy application.
 
-## Author
 
-Amy Conroy, amyeileenconroy@gmail.com
 
