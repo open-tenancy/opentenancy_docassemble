@@ -1,3 +1,3 @@
-# Template directory
+# template directory
 
-If you want to use templates for document assembly, put them in this directory.
+to store the advice document templates.
