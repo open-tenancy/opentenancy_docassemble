@@ -1,4 +1,3 @@
-# Static file directory
+# static file
 
-If you want to make files available in the web app, put them in
-this directory.
+this stores images / gifs / anyother files available on the website.
