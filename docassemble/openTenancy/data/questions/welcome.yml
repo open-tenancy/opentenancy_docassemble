@@ -1,10 +1,10 @@
 metadata:
   title: |
-    openTenancy 
+    openTenancy
   short title: |
     tenancy advice
   exit label: |
-    Exit 
+    Exit
   authors:
     - name: Amy Conroy
       organization: openTenancy
@@ -19,29 +19,33 @@ image sets:
     images:
       logo: opentenancy.png
 ---
+features:
+  javascript: main.js
+  css: main.css
+---
 id: disclaimer_question
 mandatory: True
 question: |
   # Welcome to openTenancy!
 subquestion: |
   [FILE opentenancy.png, 60%]
-  ### Your use of this system does not mean that you have a lawyer.  
+  ### Your use of this system does not mean that you have a lawyer.
   ### Do you understand this?
 yesno: understands
 ---
 mandatory: True
 code: |
-  if understands: 
+  if understands:
     welcome_question
-  else: 
+  else:
     legal_clarity
 ---
 mandatory: True
 id: category question
 question: |
-  ## We're almost ready to get started! 
+  ## We're almost ready to get started!
 subquestion: |
-  ### Over the next few minutes please help us to target the advice to you by answering a few simple questions. 
+  ### Over the next few minutes please help us to target the advice to you by answering a few simple questions.
   [FILE giphy.gif]
   ### Which category best describes your issue?
 field: welcome_question
@@ -62,16 +66,16 @@ code: |
 ---
 mandatory: True
 code: |
-  if tryagain: 
+  if tryagain:
       del disclaimer_question
 ---
 question: |
   The advice from openTenancy does not consitute binding legal advice, nor does openTenancy act as a lawyer.
-subquestion: However, what we do instead is help you sift through all the available information. If you're interested in finding out more about us, please go to our About page. Or if you would prefer, you can start the interview again. 
+subquestion: However, what we do instead is help you sift through all the available information. If you're interested in finding out more about us, please go to our About page. Or if you would prefer, you can start the interview again.
 event: legal_clarity
 choices:
   - Start Again: tryagain
   - Exit: exit
 ---
-include: 
+include:
   - repairs.yml
