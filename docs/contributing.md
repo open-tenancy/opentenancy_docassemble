@@ -20,9 +20,9 @@ legal references as well as the relevant topics from the [openTenancy law repo](
 4. The name of these folders should be EXACTLY the same name as the issue 
 5. Use branching code, ie: 
 
-<p align="center"><img src="example.png"></p>
+<p align="center"><img src="example.png"width=80%></p>
 
-continuously through out the code. This where you hit the end of the branch, great a new section of branching code (as above), in to your website. 
+continuously through out the code. This where you hit the end of the branch, create a new section of branching code (as above). 
 
 - welcome.yml
 - /repairs
