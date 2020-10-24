@@ -2,7 +2,7 @@
   
 # contributing guidelines 
 openTenancy is, at its core, open source. We are completely open to contributions, whether that be regarding a typo in our documentation or a whole new path 
-or interview. 
+or interview. The following contribution guidelines specify our docassemble interview contribution guidelines. If you are interested in the legal side, please visit the [openTenancy law repo](https://github.com/open-tenancy/opentenancy_law).
 
 ### contribution
 As it stands right now, your contribution will be checked by our founders - [Amy Conroy](https://github.com/amyconroy) and [Ana Shmyglia](https://github.com/a-shmyg). 
