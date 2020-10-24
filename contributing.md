@@ -14,6 +14,22 @@ Please note that the contributing guidelines are the same for all parts of openT
 legal references as well as the relevant topics from the [openTenancy law repo](https://github.com/open-tenancy/opentenancy_law). Please specify whether you have 'completed' that advice template to ensure that no one repeats any work.
 
 ### coding style 
+1. All interviews branch off of the welcome.yml branch
+2. All 'topics' have their own .yml file and can branch off of each other - ie from repairs, branch in to the relevant repairs, and keep branch if necessary
+3. General topics will have their own folders - ie repairs, council tax, other
+4. The name of these folders should be EXACTLY the same name as the issue 
+5. Use branching code, ie: 
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eaa018d7-60a0-4965-a6c6-eba861707308/Screen_Shot_2020-08-03_at_8.38.47_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eaa018d7-60a0-4965-a6c6-eba861707308/Screen_Shot_2020-08-03_at_8.38.47_PM.png)
+
+continuously through out the code. This where you hit the end of the branch, great a new section of branching code (as above), in to your website. 
+
+- welcome.yml
+- /repairs
+    - repairs.yml
+        - - dampmould.yml
+        - - electrics.yml
+- /counciltax
 
 
 ## Using Docassemble 
