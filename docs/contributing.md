@@ -1,4 +1,4 @@
-<p align="center"><img src="docs/OTlogo.png"width=20%></p>
+<p align="center"><img src="OTlogo.png"width=20%></p>
   
 # contributing guidelines 
 openTenancy is, at its core, open source. We are completely open to contributions, whether that be regarding a typo in our documentation or a whole new path 
@@ -20,7 +20,7 @@ legal references as well as the relevant topics from the [openTenancy law repo](
 4. The name of these folders should be EXACTLY the same name as the issue 
 5. Use branching code, ie: 
 
-<p align="center"><img src="docs/example"width=20%></p>
+<p align="center"><img src="example.png"width=20%></p>
 
 continuously through out the code. This where you hit the end of the branch, great a new section of branching code (as above), in to your website. 
 
