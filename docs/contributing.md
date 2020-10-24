@@ -20,7 +20,7 @@ legal references as well as the relevant topics from the [openTenancy law repo](
 4. The name of these folders should be EXACTLY the same name as the issue 
 5. Use branching code, ie: 
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eaa018d7-60a0-4965-a6c6-eba861707308/Screen_Shot_2020-08-03_at_8.38.47_PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/eaa018d7-60a0-4965-a6c6-eba861707308/Screen_Shot_2020-08-03_at_8.38.47_PM.png)
+<p align="center"><img src="docs/example"width=20%></p>
 
 continuously through out the code. This where you hit the end of the branch, great a new section of branching code (as above), in to your website. 
 
