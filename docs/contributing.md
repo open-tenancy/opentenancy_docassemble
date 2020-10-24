@@ -6,16 +6,21 @@ or interview.
 
 ### contribution
 As it stands right now, your contribution will be checked by our founders - [Amy Conroy](https://github.com/amyconroy) and [Ana Shmyglia](https://github.com/a-shmyg). 
+
 Please outline exactly what you have changed in the body of your pull request, if relevant attach it to an issue, and assign it the relevant tag. 
 
 If we do not accept your pull request, we will give you feedback as to why this has not be accepted, and what needs to change. 
 
-Please note that the contributing guidelines are the same for all parts of openTenancy. If you are submitting for the docassemble side, please be sure to link the 
-legal references as well as the relevant topics from the [openTenancy law repo](https://github.com/open-tenancy/opentenancy_law). Please specify whether you have 'completed' that advice template to ensure that no one repeats any work.
+Please note that the contributing guidelines are the same for all parts of openTenancy. Please be sure detail the relevant topics from the [openTenancy law repo](https://github.com/open-tenancy/opentenancy_law). Please specify whether you have 'completed' that advice template to ensure that no one repeats any work.
 
 ### coding style 
-1. All interviews branch off of the welcome.yml branch
+1. All interviews branch off of the [welcome.yml](/docassemble/openTenancy/data/questions/welcome.yml) branch
+    In this branch we confirm with the user that they:
+    - understand that this is not binding legal advice, and this does not mean that they have a lawyer. 
+    - we then ask them what topic they're interested in (NB - this is currently just repairs!)
 2. All 'topics' have their own .yml file and can branch off of each other - ie from repairs, branch in to the relevant repairs, and keep branch if necessary
+    - in [repairs.yml](/docassemble/openTenancy/data/questions/repairs.yml) we confirm their type of tenancy (whether it is less than 7 years) and if they have a binding contract with their landlord. 
+    - as part of the final question in repairs.yml we then branch in to the different topics, which we have listed [here](https://github.com/open-tenancy/opentenancy_law).
 3. General topics will have their own folders - ie repairs, council tax, other
 4. The name of these folders should be EXACTLY the same name as the issue 
 5. Use branching code, ie: 
@@ -30,6 +35,7 @@ continuously through out the code. This where you hit the end of the branch, cre
         - - dampmould.yml
         - - electrics.yml
 - /counciltax
+6. Please name your variables in [camelCase](https://en.wikipedia.org/wiki/Camel_case)
 
 
 ## Using Docassemble 
@@ -57,10 +63,10 @@ These are the questions themselves providing fields for the user to input their 
 #### DOCUMENT BLOCK
 This is the document generation section, outputting a formatted PDF to the user if they request it. Document styling is global across topics, document content is not. Docassemble supports embedded operations, variables, and logic within the document generation. This means you can think of it as a dynamic template where if the user answers a certain question then the corresponding advice will be rendered, and if not then something else will be. 
 
-### Packages
+### packages
 Docassemble interviews are split into packages. Our primary app takes place inside a single package, with multiple YAML files to keep topics modular. The Playground can also be integrated with a GitHub repo, allowing you to push and pull directly from the docassemble server instead of constantly downloading and installing ZIP files on docassemble.
 
-### Workflow
+### workflow
 Install and run an instance of docassemble through Docker. Make sure the admin server and login to Playground is functioning. 
 Next, download our opentenancy_docassemble repository from GitHub. The base interview is a docassemble package which needs to be installed on your local machine to be able to edit. This can be done through Playground, using the install option. It can also be directly integrated with and pulled from your forked GitHub repo. Once it’s installed, build the provided legal logic tree as an interview, then package again and commit to GitHub. Once you are happy with the state of the interview, submit a pull request so we can add your contribution to our production server.
 
