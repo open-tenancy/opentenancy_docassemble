@@ -3,7 +3,7 @@
 <p align="center">a docassemble extension for the openTenancy application. coming soon.</p>
 
 ## contributions 
-we are absolutely open to docassemble contributions, for more information on style and how to contribute for docassemble please see our [contribution guidelines](/docs/contribution.md).
+we are absolutely open to docassemble contributions, for more information on style and how to contribute for docassemble please see our [contribution guidelines](docs/contribution.md).
 
 ## built by 
 [amy conroy](https://github.com/amyconroy), [anastasia shmyglia](https://github.com/a-shmyg). 
