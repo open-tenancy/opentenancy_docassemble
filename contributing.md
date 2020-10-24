@@ -1,6 +1,6 @@
 <p align="center"><img src="docs/OTlogo.png"width=20%></p>
   
-## contributing guidelines 
+# contributing guidelines 
 openTenancy is, at its core, open source. We are completely open to contributions, whether that be regarding a typo in our documentation or a whole new path 
 or interview. 
 
