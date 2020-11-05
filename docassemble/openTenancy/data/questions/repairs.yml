@@ -1,9 +1,25 @@
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+---
+
 mandatory: True
 code: |
   if repairs_start: 
     if sevenyears: 
       if repairtype == 'damp':
-        damp_start
+        landlordTold
+      if repairtype == 'electrics': 
+        electricsStart
     else: 
       sorry
   else:
@@ -48,7 +64,9 @@ question: |
 field: repairtype
 choices: 
   - DAMP or MOULD; Repair relating to dampness or mould : damp
+  - ELECTRICAL; Repair relation to electrical appliances, wiring, plugs, etc. : electrics
   - OTHER; Any other type of repair : other
 ---
 include: 
   - dampmould.yml
+  - electrics.yml
