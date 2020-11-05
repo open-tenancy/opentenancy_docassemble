@@ -1,0 +1,10 @@
+mandatory: True
+event: adviceDoc
+question: Please find below a summary of your advice from openTenancy.
+attachments:
+  - name: openTenancy Advice
+    filename: openTenancyAdvice
+    valid formats:
+      - pdf    
+    content: |
+      ${ content } 
