@@ -1,0 +1,139 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: | 
+    Back to Home Page
+  url: |
+      https://www.opentenancy.co.uk
+  exit link: |
+       https://www.opentenancy.co.uk
+
+  show login: False
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if electricsStart == 'appliance':
+    if checkResponsibility == 'landlordOwner':
+       if toldElectricsLandlord: 
+         if respond == False: 
+           checkElectricsDate 
+       else: 
+         tellLandlordElectrics
+    if checkResponsibility == 'tenantOwner': 
+      tenantResponsible
+  if electricsStart == 'wiring': 
+     if toldElectricsLandlord: 
+       if respond == False: 
+         if deadlinePassed: 
+            if warningLetterWiring:
+              tellCouncil 
+            else: 
+              writeWarningLetter
+         else:
+           wiringWaitDeadline
+      # elif respond == True: 
+     else: 
+       tellLandlordElectrics
+       command('exit')
+---
+#QUESTION BLOCK
+question: |
+  Does this relate to an appliance or wiring? 
+field: electricsStart
+choices:
+  - Appliance: appliance
+  - Electrical Wiring: wiring
+    help: |
+      This may include switches, sockets, light fittings, circuit boards, wiring circuits, etc.  
+under: |
+  Generally, a landlord is responsible to undertake any repairs relating to the electrical wiring for a property. If there is faulty electrical wiring, this can be a hazard to your health. 
+---
+question: |
+  Was the appliance supplied by the landlord, or did you bring it to your home?
+field: checkResponsibility
+choices: 
+  - Supplied by landlord: landlordOwner
+  - Supplied by me (tenant): tenantOwner
+--- 
+# END OF INTERVIEW IF APPLIANCE SUPPLIED BY TENANT 
+question: | 
+  As you supplied the appliance, you are responsible for repairing it. 
+field: tenantResponsible
+--- 
+question: | 
+  Have you told your landlord about your issue? 
+field: askedElectricsLandlord
+yesno: toldElectricsLandlord
+---
+question: |
+  When did you talk to your landlord about your repairs (dd/mm/yy)? 
+fields: 
+  - Date: checkElectricsDate
+    datatype: date
+---
+mandatory: True
+code: |
+  response_deadline = checkElectricsDate.plus(days = 14)
+  today = today()
+  if today > response_deadline: 
+    deadlinePassed = True
+  else: 
+    deadlinePassed = False
+---
+question: | 
+  Your landlord is reponsible for any repairs relating to the electrical wiring in the property. However, we recommend waiting 14 days to receive a response from your landlord. 
+subquestion: | 
+  Would you like advice for what to do if your landlord does not respond? 
+yesno: wiringWaitDeadline
+--- 
+question: | 
+  Before contacting the local council, we recommend writing your landlord a letter before you do. 
+subquestion: | 
+  We recommend informing your landlord that you intend to take the matter to the council, and that they have a legal responsibility as a landlord to repair any faulty electrical wiring. Have you already sent a letter like this? 
+yesno: warningLetterWiring
+--- 
+question: | 
+  We recommend writing your landlord informing them of the next steps you are going to take. These include raising the issue with the Environmental Health Team of your local council. 
+subquestion: | 
+  Would you like a document summarising openTenancy's advice?
+field: writeLetter
+--- 
+question: | 
+  As the landlord has responded, have they agreed to fix the issue? 
+yesno: respond
+--- 
+question: |
+  In order to ensure that your landlord is aware that there is an electrical issue, it is suggested that you first contact your landlord to let them know. 
+subquestion: |
+  Your landlord must respond to you within 14 days if your tenancy began after 1st October 2015, they must also state what action they are going to take. 
+field: tellLandlordElectrics
+---
+question: |
+  In order to ensure that your landlord is aware that there is an electrical issue, it is suggested that you first contact your landlord to let them know. 
+subquestion: |
+  Your landlord must respond to you within 14 days if your tenancy began after 1st October 2015, they must also state what action they are going to take. 
+field: tellCouncil
+
+---
+#EVENT BLOCK
+event: electricDoc
+question: Please find below a summary of your advice from openTenancy.
+attachments:
+  - name: openTenancy Advice Electric
+    filename: openTenancyAdviceElectric
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
+
+      Electric Advice Goes Here
+      
+
+---
+field: all_done
+code: |
+  command('exit')

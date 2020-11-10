@@ -4,7 +4,12 @@ metadata:
   short title: |
     tenancy advice
   exit label: |
-    Exit
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
   authors:
     - name: Amy Conroy
       organization: openTenancy
@@ -20,7 +25,7 @@ image sets:
       logo: opentenancy.png
 ---
 features:
-  javascript: main.js
+  #javascript: main.js
   css: main.css
 ---
 id: disclaimer_question
@@ -46,7 +51,6 @@ question: |
   ## We're almost ready to get started!
 subquestion: |
   ### Over the next few minutes please help us to target the advice to you by answering a few simple questions.
-  [FILE giphy.gif]
   ### Which category best describes your issue?
 field: welcome_question
 choices:
@@ -64,18 +68,13 @@ code: |
   elif welcome_question == 'other':
     repairs_start
 ---
-mandatory: True
-code: |
-  if tryagain:
-      del disclaimer_question
----
 question: |
   The advice from openTenancy does not consitute binding legal advice, nor does openTenancy act as a lawyer.
 subquestion: However, what we do instead is help you sift through all the available information. If you're interested in finding out more about us, please go to our About page. Or if you would prefer, you can start the interview again.
 event: legal_clarity
 choices:
-  - Start Again: tryagain
+  - Start Again: restart
   - Exit: exit
 ---
 include:
-  - repairs.yml
+  repairs.yml
