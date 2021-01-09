@@ -1,0 +1,65 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+  
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if decorationStart == "addNewDecoration":
+    addingNewDecorations
+  if decorationStart == "repairExistingDecoration":
+    if afterPropertyRepairs:
+      decoratingAfterRepairs
+    else:
+      if afterEndOfTenancy:
+        endOfTenancyWearTear
+      else:
+        tenantResponsible
+---
+#QUESTION BLOCK
+question: |
+  Do you wish to add additional decorations to the property, or have existing decoration fixed?
+field: decorationStart
+choices:
+  - Add new decoration: addNewDecoration
+  - Fix existing decoration: repairExistingDecoration
+---
+question: |
+  Is this taking place after repairs having been done on the property, carried out by the Landlord (or having a contractor complete the repairs)?
+field: afterPropertyRepairs
+yesno: afterPropertyRepairs
+
+---
+question: |
+  Your landlord is responsible for redecorating the problem after repairs have been carried out. 
+field: decoratingAfterRepairs
+---
+question: |
+  Is this at the end of your tenancy, AND a result of normal wear and tear?
+field: afterEndOfTenancy
+yesno: afterEndOfTenancy
+
+---
+question: |
+  Your landlord will likely be responsible for repairing normal and minor repairs caused by wear and tear.
+field: endOfTenancyWearTear
+---
+question: |
+  If the property needs re-decorating as a result of your own actions, you will likely be responsible for re-decorating it. We recomment you have a chat with your landlord and review your tenancy agreement.
+field: tenantResponsible
+
+---
+question: |
+  Your tenancy agreement may stipulate that you are responsible for decoration, or that you are not allowed to have decoration undertaken on your property. We recomment you have a chat with your landlord, or review the tenancy agreement.
+field: addingNewDecorations

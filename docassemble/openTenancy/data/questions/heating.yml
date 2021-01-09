@@ -1,0 +1,58 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: | 
+    Back to Home Page
+  url: |
+      https://www.opentenancy.co.uk
+  exit link: |
+       https://www.opentenancy.co.uk
+
+  show login: False
+  
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if heatingStart:
+    #yes branch
+    heatingEmergency
+    repairAdviceEmergency
+  else:
+    #no branch
+    heatingNonEmergency
+    repairAdvice
+    
+---
+question: |
+  Has your boiler completely stopped working?
+field: heatingStart
+yesno: heatingStart
+
+---
+question: |
+  This is likely to be classed as an emergency and your landlord will have to repair it within 24 hours.
+field: heatingEmergency
+
+---
+question: |
+  REPAIR EMERGENCY ADVICE
+field: repairAdviceEmergency
+
+---
+question: |
+  REPAIR NORMAL ADVICE
+field: repairAdvice
+---
+question: |
+  If you are starting to notice a problem with your heater but you still have heating, this will not be classed as an emergency. We recommend that you contact your landlord and let them know about the issue.
+field: heatingNonEmergency
+
+---
+code: | #helper function for calculating time
+#enter time boiler stopped working
+#calculate
+#put into main logic as variable and reference in question
