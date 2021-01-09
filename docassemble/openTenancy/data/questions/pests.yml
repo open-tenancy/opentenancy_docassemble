@@ -1,0 +1,94 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: | 
+    Back to Home Page
+  url: |
+      https://www.opentenancy.co.uk
+  exit link: |
+       https://www.opentenancy.co.uk
+
+  show login: False
+  
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if pestStart == "tenancyLandlordResponsible":
+    reportingRepairs
+  if pestStart == "causedByLandlord":
+    contactLandlordSteps
+  if pestStart == "otherCause":
+    if unsafeLivingPests:
+      homeUnsafe
+    if pestsBeforeTenancyStart:
+      pestsBeforeMovein
+    if other:
+      #tenant could also be responsible
+      if tenantAtFault:
+        printAdviceTenantAtFault
+      else:
+        if contactedLandlord: #yes
+          contactCouncil
+        else: #no
+          contactLandlord
+          contactCouncil
+---
+#QUESTION BLOCK
+question: |
+  There are a few ways to figure out who is responsible to deal with pests or vermin. Please select the one which applies to you.
+
+field: pestStart
+choices:
+  - Tenancy agreement states landlord responsible : tenancyLandlordResponsible
+  - The infestation was a result of landlord not making repairs: causedByLandlord
+  - Other: otherCause
+  
+---
+question: |
+  Your tenancy agreement states the landlord is responsible for dealing with the infestation. The next step is to report the repairs. 
+field: reportingRepairs
+
+---
+question: |
+  Your landlord caused the infestation by not carrying out the correct repairs, for example not repairing holes in the exterior of the home. The next step is to report this to your landlord so they can provide a fix.
+field: contactLandlordSteps
+
+---
+question: |
+  Your home is not safe to live in, and this might mean you or your family is getting ill. The next step is to report this to your landlord so they can provide a fix.
+field: homeUnsafe
+
+---
+question: |
+  Your house was furnished when you moved in, and there were pests present when you moved in. This does not apply when the problem developed AFTER you moved in.
+field: pestsBeforeMovein
+
+---
+question: |
+  You may be responsible for dealing with pesys if they were caused by one of your actions. This might include leaving rubbish out, or not properly cleaning the property. Was the infestation caused by your action?
+field: tenantAtFault
+yesno: tenantAtFault
+---
+question: |
+  ADVICE FOR TENANT AT FAULT END NODE
+field: printAdviceTenantAtFault
+
+---
+question: |
+  If your landlord does not believe this was their fault and won't deal with the pest or vermin, you should contact the local Environmental Health Office at your council, they should help you identify who is responsible.
+field: contactCouncil
+
+---
+question: |
+  Have you contacted your landlord to discuss the issue?
+field: contactedLandlord
+yesno: contactedLandlord
+
+---
+question: |
+  If you believe this was not your fault, you should contact your landlord and discuss how to find a proper resolution to the problem, as well as review the tenancy agreement.
+field: contactLandlord
