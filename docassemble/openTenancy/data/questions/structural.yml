@@ -1,0 +1,111 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if structuralStart: #did tenant damage the exterior willingly or not
+    tentantResponsible
+  else:
+    if structuralProblemType == "garden":
+      gardenAdvice
+    if structuralProblemType == "external":
+      externalStructuralAdvice
+      if existingStructuralIssue:
+        if toldLandlord:
+          if reasonableTimeCheck: #MORE THAN 14 DAYS PASSED
+            if homeUninhabitable:
+              finalAdviceNoResponse
+            else:
+              finalAdviceResponse
+          else:
+            waitReasonableTimeAdvice
+        else:
+          informLandlordNextSteps
+      else:
+        inspectionsFinalAdvice
+      
+---
+#QUESTION BLOCK
+question: |
+  Did you or the guests damage the exterior in any way either willingly or not? 
+field: structuralStart
+yesno: structuralStart
+---
+question: |
+  You will likely be required to cover the costs of the repair.
+field: tentantResponsible
+
+---
+question: |
+  What does your structural problem or query relate to?
+field: structuralProblemType
+choices:
+  - Garden: garden
+  - Roof, external walls and foundation, doors, windows, gutters: external
+---
+question: |
+  You will have to clarify with your landlord as to who is responsible for maintaining your garden. The landlord may have incuded maintaining the garden in your tenancy agreement - this is completely legal.
+field: gardenAdvice
+
+---
+question: |
+  Your landlord will be responsible for the repair and maintenance of the property's structure. This is covered in the Landlord and Tenant Act of 1985, and the Housing Act of 2004.
+field: externalStructuralAdvice
+
+---
+question: |
+  Do you currently have an existing structural issue that you need more advice for?
+field: existingStructuralIssue
+yesno: existingStructuralIssue
+
+---
+question: |
+  Have you told your landlord?
+field: toldLandlord
+---
+question: |
+  You must tell your landlord so that they know there is an issue to address. We recomment writing a formal letter to your landlord and submit the request for repairs. You must then wait a reasonable time for the landlord to respond - usually this means up to 14 days. 
+field: informLandlordNextSteps
+yesno: informLandlordNextSteps
+---
+question: |
+  Is your home unfit for human habitation OR is it unsafe to live in?
+field: homeUninhabitable
+yesno: homeUninhabitable
+
+---
+question: |
+  CITIZEN'S ADVICE OR COUNCIL TEMPLATE
+field: finalAdviceNoResponse
+
+---
+question: |
+  WAIT FOR LANDLORD TO RESPOND
+field: finalAdviceResponse
+
+---
+question: |
+  Wait for a reasonable time for the landlord to respond.
+field: waitReasonableTimeAdvice
+
+---
+question: |
+  Remember to perform regular inspections on the exterior of your property to find issues early.
+field: inspectionsFinalAdvice
+
+---
+question: |
+  TIME CHECK REASONABLE TIME
+field: reasonableTimeCheck
