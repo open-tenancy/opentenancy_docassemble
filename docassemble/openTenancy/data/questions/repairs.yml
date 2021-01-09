@@ -14,16 +14,33 @@ metadata:
 
 mandatory: True
 code: |
-  if repairs_start: 
+  testingVariablePass
+
+  if repairs_start: #this section needs to be modified, not very DRY atm
     if sevenyears: 
       if repairtype == 'damp':
         landlordTold
       if repairtype == 'electrics': 
         electricsStart
+      if repairtype == 'structural':
+        structuralStart
     else: 
       sorry
   else:
-    verbal_tenancy
+    if verbal_tenancy:
+      if sevenyears:
+        if repairtype == 'damp':
+          landlordTold
+        if repairtype == 'electrics': 
+          electricsStart
+        if repairtype == "structural":
+          structuralStart
+      else:
+        sorry
+---
+question: |
+  testing variables
+field: testingVariablePass
 ---
 terms:
   tenancy agreement: |
@@ -58,6 +75,11 @@ choices:
   - Start Again: disclaimer_question
   - Exit: exit
 ---
+question: |
+  Do you have a valid verbal tenancy? 
+field: verbal_tenancy
+yesno: verbal_tenancy
+---
 mandatory: True
 question: |
   Select below which category best describes the type of repair that you need advice for. 
@@ -65,8 +87,15 @@ field: repairtype
 choices: 
   - DAMP or MOULD; Repair relating to dampness or mould : damp
   - ELECTRICAL; Repair relation to electrical appliances, wiring, plugs, etc. : electrics
+  - STRUCTURAL : structural
+  - WATER : water
+  - PESTS : pests
+  - HEATING : heating
+  - FURNITURE : furniture
+  - DECORATION : decoration
   - OTHER; Any other type of repair : other
 ---
 include: 
   - dampmould.yml
   - electrics.yml
+ 
