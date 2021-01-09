@@ -21,21 +21,26 @@ code: |
        if toldElectricsLandlord: 
          if respond == False: 
            checkElectricsDate 
+           command("exit")
        else: 
          tellLandlordElectrics
+         command("exit")
     if checkResponsibility == 'tenantOwner': 
       tenantResponsible
+      command("exit")
   if electricsStart == 'wiring': 
      if toldElectricsLandlord: 
        if respond == False: 
          if deadlinePassed: 
             if warningLetterWiring:
-              tellCouncil 
+              tellCouncil
+              command("exit")
             else: 
               writeWarningLetter
+              command("exit")
          else:
            wiringWaitDeadline
-      # elif respond == True: 
+           command("exit")
      else: 
        tellLandlordElectrics
        command('exit')
