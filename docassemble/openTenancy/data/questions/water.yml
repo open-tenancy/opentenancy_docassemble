@@ -1,0 +1,51 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: | 
+    Back to Home Page
+  url: |
+      https://www.opentenancy.co.uk
+  exit link: |
+       https://www.opentenancy.co.uk
+
+  show login: False
+  
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if waterStart == "leak"
+    if waterStructuralDamage:
+      landlordResponsible
+      if personalBelongingDamage:
+      
+      else:
+    else:
+      
+  if waterStart == "Unsafe water supply"
+    unfitForHabitation
+    environmentalHealth
+  if waterStart == "Water heating"
+    landlordHeatingResponsible
+    if isTenantResponsible:
+      tenantResponsible
+    else:
+      if waterHeatingBroken: #yes broken
+        waterHeatingHazard
+      else: #no not broken/slightly broken
+        signsWaterBroken
+        contactLandlord
+        reportingRepairs
+
+---
+#HELPER FUNCTIONS
+code |
+#check current date
+#if between, say, 1st october and 30th feb, then it's "winter"
+#then say its urgent if winter
+
+---
+#QUESTION BLOCK
