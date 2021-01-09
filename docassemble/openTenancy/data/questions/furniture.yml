@@ -1,0 +1,65 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: | 
+    Back to Home Page
+  url: |
+      https://www.opentenancy.co.uk
+  exit link: |
+       https://www.opentenancy.co.uk
+
+  show login: False
+ 
+---
+#LOGIC BLOCK
+mandatory: True
+code: |
+  if furnitureStart: #was furniture provided by landlord?
+    if furnitureUnusable:
+      replaceWithUsable
+    else:
+      if furnitureFireSafe: #yes
+        furnitureIsSafe
+      else: #no
+        furnitureNotSafe
+  else:
+    tenantResponsible
+---
+#QUESTION BLOCK
+question: |
+  Your landlord only has to repair any furniture they that they provide to you.
+field: tenantResponsible
+---
+question: |
+  Follow the guidance for getting repairs done while renting.
+field: furnitureIsSafe
+---
+question: |
+  Any furniture made before 1950 must be fire resistant. If any upholstered furniture doesn't have a label saying it is not fire safe, you can ask your landlord to repair it.
+field: furnitureNotSafe
+---
+question: |
+  Is the furniture fire safe?
+field: furnitureFireSafe
+yesno: furnitureFireSafe
+
+---
+question: |
+  Was the furniture provided to you by your landlord?
+field: furnitureStart
+yesno: furnitureStart
+
+---
+question: |
+  Is the furniture unusable? 
+field: furnitureUnusable
+yesno: furnitureUnusable
+
+---
+question: |
+  You have the right to have this replaced with a usable item.
+field: replaceWithUsable
+yesno: replaceWithUsable
