@@ -21,11 +21,14 @@ code: |
   if landlordRefusedRepairs: #landlord is refusing to carry out
     #provide advice of what person can do
     refusingRepairsOptions
+    refuseRepairsStart = True
   else:
     if furtherRepairsIssues:
       improperRepairs
+      refuseRepairsStart = True
     else:
       noFurtherIssues
+      refuseRepairsStart = True
 ---
 #QUESTION BLOCK
 question: |
@@ -34,7 +37,7 @@ field: landlordRefusedRepairs
 yesno: landlordRefusedRepairs
 ---
 question: |
-  There are some potential options for if your landlord is refusing repairs. LIST OPTIONS IN PDF RENDER
+  There are some potential options for if your landlord is refusing repairs. Continue to recieve a summary of this interview.
 yesno: refusingRepairsOptions
 
 ---
@@ -53,3 +56,4 @@ yesno: improperRepairs
 question: |
   Since you have no further issues with repairs, would you like a pdf summarising your advice?
 field: noFurtherIssues
+
