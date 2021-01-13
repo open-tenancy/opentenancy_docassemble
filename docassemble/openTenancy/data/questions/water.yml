@@ -1,4 +1,4 @@
-METADATA BLOCK
+#METADATA BLOCK
 metadata:
   title: |
     openTenancy
@@ -7,15 +7,15 @@ metadata:
   exit label: | 
     Back to Home Page
   url: |
-      https://www.opentenancy.co.uk
+    https://www.opentenancy.co.uk
   exit link: |
-       https://www.opentenancy.co.uk
-
+    https://www.opentenancy.co.uk
   show login: False
 ---
 use objects: True
 objects from file:
   - repairAdvice: repairadvice.json
+  - questionFile: waterquestions.json
 ---
 #LOGIC BLOCK
 mandatory: True
@@ -62,11 +62,6 @@ code: |
     waterUnsafe #terminal node, after this go to doc gen
     generateAdvice
     waterStart = True
----
-#HELPER FUNCTIONS
-#check current date
-#if between, say, 1st october and 30th feb, then it's "winter"
-#then say its urgent if winter
 
 ---
 #QUESTION BLOCK
@@ -78,7 +73,7 @@ choices:
   - Unsafe water supply: waterHeating
   - Water heating problem: waterSupply
 ---
-include:
+include: 
   - reportingRepairs.yml
 ---
 question: |
@@ -159,13 +154,12 @@ question: |
 field: lackOfUtility
 
 ---
-#ADVICE GENERATION BLOCK
+#EVENT BLOCK
 event: generateAdvice
-question: Please find below a summary of your advice from openTenancy.
+question: Please find below a summary of your interview from openTenancy.
 attachments:
-  - name: openTenancy Advice
-    filename: openTenancyAdvice
+  - name: openTenancy Summary
+    filename: openTenancySummary
+    docx template file: test1.docx
     valid formats:
       - pdf    
-    content: |
-      [BOLDCENTER] Summary of openTenancy Advice
