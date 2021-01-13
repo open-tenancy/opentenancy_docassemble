@@ -12,46 +12,62 @@ metadata:
        https://www.opentenancy.co.uk
 
   show login: False
- 
+---
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
+  - furnitureq: furniturequestions.json
 ---
 #LOGIC BLOCK
 mandatory: True
 code: |
-  if furnitureStart: #was furniture provided by landlord?
+  if furnitureByLandlord: #was furniture provided by landlord?
     if furnitureUnusable:
-      replaceWithUsable
+      replaceWithUsable #repairs done for renting
+      reportingRepairsStart
+      generateAdvice
+      furnitureStart = True
     else:
-      if furnitureFireSafe: #yes
+      if furnitureFireSafe: #yes it is safe
         furnitureIsSafe
+        generateAdvice
+        furnitureStart = True
       else: #no
-        furnitureNotSafe
+        furnitureNotSafe #repairs done for renting
+        reportingRepairsStart
+        generateAdvice
+        furnitureStart = True
   else:
     tenantResponsible
+    generateAdvice
+    furnitureStart = True
+---
+include:
+  - reportingRepairs.yml
 ---
 #QUESTION BLOCK
+question: |
+  Was the furniture provided to you by your landlord?
+field: furnitureByLandlord
+yesno: furnitureByLandlord
+
+---
 question: |
   Your landlord only has to repair any furniture they that they provide to you.
 field: tenantResponsible
 ---
 question: |
-  Follow the guidance for getting repairs done while renting.
+  PLACEHOLDER
 field: furnitureIsSafe
 ---
 question: |
-  Any furniture made before 1950 must be fire resistant. If any upholstered furniture doesn't have a label saying it is not fire safe, you can ask your landlord to repair it.
+  Any furniture made before 1950 must be fire resistant. If any upholstered furniture doesn't have a label saying it is not fire safe, you can ask your landlord to repair it. The next steps can take you through getting repairs done while renting.
 field: furnitureNotSafe
 ---
 question: |
   Is the furniture fire safe?
 field: furnitureFireSafe
 yesno: furnitureFireSafe
-
----
-question: |
-  Was the furniture provided to you by your landlord?
-field: furnitureStart
-yesno: furnitureStart
-
 ---
 question: |
   Is the furniture unusable? 
@@ -60,6 +76,22 @@ yesno: furnitureUnusable
 
 ---
 question: |
-  You have the right to have this replaced with a usable item.
+  You have the right to have this replaced with a usable item. The next steps can take you through getting repairs done while renting.
 field: replaceWithUsable
-yesno: replaceWithUsable
+---
+#EVENT BLOCK
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
+---
+event: generateAdvice
+question: Please find below a summary of your interview from openTenancy.
+attachments:
+  - name: openTenancy Summary
+    filename: openTenancySummary
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
+      
+      
