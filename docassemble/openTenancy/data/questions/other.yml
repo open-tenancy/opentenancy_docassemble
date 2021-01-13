@@ -1,0 +1,19 @@
+#really short 1 screen interview just to say, next topics are coming if you have ideas do let us know!
+
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+---
+question: |
+  If you have any ideas about other topics we could do, please let us know on our social media or by email!
+field: otherStart
+#need a terminal node or redirect notice
