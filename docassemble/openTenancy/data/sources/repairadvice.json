@@ -1,0 +1,10 @@
+{
+  "environmentalHealth": "If the problem is affecting your health and you have not received an appropriate response from your landlord (explaining how or when they will fix the issue) within 14 days, we would recommend contacting the Environmental Health department at your local council.",
+  "councilLetter": "We recommend either filing a complaint with your local council if you were not happy with their decision and ask them to look at their decision once more. This could be helpful if you think that they did not give enough care to look at your porblem. However, you can also contact your nearest Citizens Advice as a next step.",
+  "landlordLetter": "WRITE WARNING LETTER"
+  "contactLandlord": " You must tell your landlord so that they know there is an issue to address. We recomment writing a formal letter to your landlord and submit the request for repairs. You must then wait a reasonable time for the landlord to respond - usually this means up to 14 days.",
+  "landlordResponds": " Your landlord must respond to you within 14 days if your tenancy began after 1st October 2015, they must also state what action they are going to take.",
+  "waitForLandlord": "NEED TO WAIT FOR LANDLORD TO ACTUALLY DO REPAIRS",
+  "reasonableTime": "NEED TO WAIT FOR A REASONABLE TIME",
+  "noLandlordRespons": "Your landlord should have responded by now. If the problem is affecting your health or constitutes a hazard, and your landlord is not responding to your request for repairs, you can go to the council or Citizen's Advice Bureau."
+}
