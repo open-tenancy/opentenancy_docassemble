@@ -12,47 +12,87 @@ metadata:
        https://www.opentenancy.co.uk
 
   show login: False
-  
+---
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
 ---
 #LOGIC BLOCK
 mandatory: True
 code: |
-  if heatingStart:
+  if heatingIntro:
     #yes branch
     heatingEmergency
-    repairAdviceEmergency
+    if landlordEmergency: #inform landlord about emergency
+      hasToldLandlord
+      generateAdvice
+      heatingStart = True
+        
+    else:
+      informLandlordEmergency #tell them to let the landlord know
+      generateAdvice
+      heatingStart = True
   else:
-    #no branch
     heatingNonEmergency
-    repairAdvice
-    
+    reportingRepairsStart
+    generateAdvice
+    heatingStart = True
 ---
 question: |
   Has your boiler completely stopped working?
-field: heatingStart
-yesno: heatingStart
+field: heatingIntro
+yesno: heatingIntro
 
 ---
+include:
+  - reportingRepairs.yml
+---
 question: |
-  This is likely to be classed as an emergency and your landlord will have to repair it within 24 hours.
+  This is likely to be classed as an emergency and your landlord will have to respond within 24 hours, especially if during winter.
 field: heatingEmergency
 
 ---
 question: |
-  REPAIR EMERGENCY ADVICE
-field: repairAdviceEmergency
-
+  You should inform your landlord as this is likely to be classed as an emergency. They should respond within 24 hours and resolve the issue, as this could be a hazard to health during winter.
+field: informLandlordEmergency
 ---
 question: |
-  REPAIR NORMAL ADVICE
-field: repairAdvice
+  It is good that you have informed your landlord. They should respond within 24 hours and resolve the issue.
+field: hasToldLandlord
+
 ---
 question: |
   If you are starting to notice a problem with your heater but you still have heating, this will not be classed as an emergency. We recommend that you contact your landlord and let them know about the issue.
 field: heatingNonEmergency
 
 ---
-code: | #helper function for calculating time
-#enter time boiler stopped working
-#calculate
-#put into main logic as variable and reference in question
+question: |
+  Has your landlord responded to the repair request?
+field: landlordEmergencyResponse
+yesno: landlordEmergencyResponse
+---
+code: | #needs fixing
+  emergencyDeadline = timeCheck.plus(hours = 24)
+  hour = format_datetime(today().hour)
+  if hour > emergencyDeadline: 
+    emergencyDeadlinePassed = True
+  else: 
+    emergencyDeadlinePassed = False
+---
+question: |
+  Have you informed your landlord about the boiler not working?
+field: landlordEmergency
+yesno: landlordEmergency
+---
+#EVENT BLOCK
+event: generateAdvice
+question: Please find below a summary of your interview from openTenancy.
+attachments:
+  - name: openTenancy Summary
+    filename: openTenancySummary
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
+      
+      
