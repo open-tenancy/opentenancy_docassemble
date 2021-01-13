@@ -13,42 +13,36 @@ metadata:
 
   show login: False
 ---
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
+---
 #LOGIC BLOCK
 mandatory: True
 code: |
-  if electricsStart == 'appliance':
+  if electricIntro == 'appliance':
+    #topic = "electrical appliance"
     if checkResponsibility == 'landlordOwner':
-       if toldElectricsLandlord: 
-         if respond == False: 
-           checkElectricsDate 
-           command("exit")
-       else: 
-         tellLandlordElectrics
-         command("exit")
+       reportingRepairsStart
+       generateAdvice
+       electricStart = True
+         
     if checkResponsibility == 'tenantOwner': 
       tenantResponsible
-      command("exit")
-  if electricsStart == 'wiring': 
-     if toldElectricsLandlord: 
-       if respond == False: 
-         if deadlinePassed: 
-            if warningLetterWiring:
-              tellCouncil
-              command("exit")
-            else: 
-              writeWarningLetter
-              command("exit")
-         else:
-           wiringWaitDeadline
-           command("exit")
-     else: 
-       tellLandlordElectrics
-       command('exit')
+      generateAdvice
+      electricsStart = True
+      
+  if electricIntro == 'wiring': 
+     wiringProblem
+     reportingRepairsStart
+     councilStart
+     generateAdvice
+     electricsStart = True
 ---
 #QUESTION BLOCK
 question: |
   Does this relate to an appliance or wiring? 
-field: electricsStart
+field: electricIntro
 choices:
   - Appliance: appliance
   - Electrical Wiring: wiring
@@ -57,6 +51,10 @@ choices:
 under: |
   Generally, a landlord is responsible to undertake any repairs relating to the electrical wiring for a property. If there is faulty electrical wiring, this can be a hazard to your health. 
 ---
+include:
+  - reportingRepairs.yml
+  - council.yml
+---
 question: |
   Was the appliance supplied by the landlord, or did you bring it to your home?
 field: checkResponsibility
@@ -64,7 +62,6 @@ choices:
   - Supplied by landlord: landlordOwner
   - Supplied by me (tenant): tenantOwner
 --- 
-# END OF INTERVIEW IF APPLIANCE SUPPLIED BY TENANT 
 question: | 
   As you supplied the appliance, you are responsible for repairing it. 
 field: tenantResponsible
@@ -90,10 +87,8 @@ code: |
     deadlinePassed = False
 ---
 question: | 
-  Your landlord is reponsible for any repairs relating to the electrical wiring in the property. However, we recommend waiting 14 days to receive a response from your landlord. 
-subquestion: | 
-  Would you like advice for what to do if your landlord does not respond? 
-yesno: wiringWaitDeadline
+  Your landlord is reponsible for any repairs relating to the electrical wiring in the property. You should notify your landlord and wait a reasonable amount of time for them to respond. Usually, this is 14 days.
+field: wiringProblem
 --- 
 question: | 
   Before contacting the local council, we recommend writing your landlord a letter before you do. 
@@ -125,20 +120,14 @@ field: tellCouncil
 
 ---
 #EVENT BLOCK
-event: electricDoc
-question: Please find below a summary of your advice from openTenancy.
+event: generateAdvice
+question: Please find below a summary of your interview from openTenancy.
 attachments:
-  - name: openTenancy Advice Electric
-    filename: openTenancyAdviceElectric
+  - name: openTenancy Summary
+    filename: openTenancySummary
     valid formats:
       - pdf    
     content: |
       [BOLDCENTER] Summary of openTenancy Advice
-
-      Electric Advice Goes Here
       
-
----
-field: all_done
-code: |
-  command('exit')
+      
