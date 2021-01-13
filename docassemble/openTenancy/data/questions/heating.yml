@@ -16,6 +16,7 @@ metadata:
 use objects: True
 objects from file:
   - repairAdvice: repairadvice.json
+  - questionFile: heatingquestions.json
 ---
 #LOGIC BLOCK
 mandatory: True
@@ -90,9 +91,8 @@ question: Please find below a summary of your interview from openTenancy.
 attachments:
   - name: openTenancy Summary
     filename: openTenancySummary
+    docx template file: test1.docx
     valid formats:
       - pdf    
-    content: |
-      [BOLDCENTER] Summary of openTenancy Advice
       
       
