@@ -12,41 +12,58 @@ metadata:
        https://www.opentenancy.co.uk
 
   show login: False
-  
+---
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
 ---
 #LOGIC BLOCK
 mandatory: True
 code: |
-  if pestStart == "tenancyLandlordResponsible":
-    reportingRepairs
-  if pestStart == "causedByLandlord":
+  #generateAdvice #FOR TESTING
+  if pestIntro == "tenancyLandlordResponsible":
+    reportingRepairs #terminal node
+    reportingRepairsStart
+    generateAdvice
+    pestStart = True
+  if pestIntro == "causedByLandlord":
     contactLandlordSteps
-  if pestStart == "otherCause":
+    reportingRepairsStart
+    generateAdvice
+    pestStart = True
+  if pestIntro == "otherCause":
     if unsafeLivingPests:
       homeUnsafe
+      reportingRepairsStart
+      generateAdvice
+      pestStart = True
     if pestsBeforeTenancyStart:
       pestsBeforeMovein
+      generateAdvice
+      pestStart = True
     if other:
       #tenant could also be responsible
       if tenantAtFault:
         printAdviceTenantAtFault
+        generateAdvice
+        pestStart = True
       else:
-        if contactedLandlord: #yes
-          contactCouncil
-        else: #no
-          contactLandlord
-          contactCouncil
+        contactCouncil
+        generateAdvice
+        pestStart = True
 ---
 #QUESTION BLOCK
 question: |
   There are a few ways to figure out who is responsible to deal with pests or vermin. Please select the one which applies to you.
 
-field: pestStart
+field: pestIntro
 choices:
   - Tenancy agreement states landlord responsible : tenancyLandlordResponsible
   - The infestation was a result of landlord not making repairs: causedByLandlord
   - Other: otherCause
-  
+---
+include:
+  - reportingRepairs.yml
 ---
 question: |
   Your tenancy agreement states the landlord is responsible for dealing with the infestation. The next step is to report the repairs. 
@@ -92,3 +109,16 @@ yesno: contactedLandlord
 question: |
   If you believe this was not your fault, you should contact your landlord and discuss how to find a proper resolution to the problem, as well as review the tenancy agreement.
 field: contactLandlord
+---
+#ADVICE GENERATION BLOCK
+event: generateAdvice
+question: Please find below a summary of your advice from openTenancy.
+attachments:
+  - name: openTenancy Advice
+    filename: openTenancyAdvice
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
+      
+  
