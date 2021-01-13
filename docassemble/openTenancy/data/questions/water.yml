@@ -1,4 +1,4 @@
-#METADATA BLOCK
+METADATA BLOCK
 metadata:
   title: |
     openTenancy
@@ -12,40 +12,160 @@ metadata:
        https://www.opentenancy.co.uk
 
   show login: False
-  
+---
+use objects: True
+objects from file:
+  - repairAdvice: repairadvice.json
 ---
 #LOGIC BLOCK
 mandatory: True
 code: |
-  if waterStart == "leak"
-    if waterStructuralDamage:
-      landlordResponsible
+  if waterIntro == "leak":
+    if personalBelongingDamage or structuralDamage:
       if personalBelongingDamage:
+        checkResponsible #puts neighbour or landlord into the variable
+        claimForRepairs #depending on who it is person can do a claim
+          
+      if structuralDamage:
+        landlordRepairs #landlord responsible for repairs, 
       
-      else:
+      reportingRepairsStart
+      generateAdvice #terminal node
+      waterStart = True
+      
     else:
+      tellLandlordLeak #if there is no damage, still tell landlord
+      reportingRepairsStart
+      generateAdvice
+      waterStart = True
       
-  if waterStart == "Unsafe water supply"
-    unfitForHabitation
-    environmentalHealth
-  if waterStart == "Water heating"
+  if waterIntro == "waterHeating":
     landlordHeatingResponsible
     if isTenantResponsible:
-      tenantResponsible
+      tenantResponsible #terminal node
+      generateAdvice
+      waterStart = True
     else:
-      if waterHeatingBroken: #yes broken
-        waterHeatingHazard
-      else: #no not broken/slightly broken
+      if waterBroken:
         signsWaterBroken
         contactLandlord
-        reportingRepairs
-
+        reportingRepairsStart
+        generateAdvice
+        waterStart = True
+        
+      else:
+        lackOfUtility #also terminal node
+        generateAdvice
+        waterStart = True
+        
+  if waterIntro == "waterSupply":
+    waterUnsafe #terminal node, after this go to doc gen
+    generateAdvice
+    waterStart = True
 ---
 #HELPER FUNCTIONS
-code |
 #check current date
 #if between, say, 1st october and 30th feb, then it's "winter"
 #then say its urgent if winter
 
 ---
 #QUESTION BLOCK
+question: |
+  What is the nature of your water problem?
+field: waterIntro
+choices:
+  - Leak: leak
+  - Unsafe water supply: waterHeating
+  - Water heating problem: waterSupply
+---
+include:
+  - reportingRepairs.yml
+---
+question: |
+  If your water is unsafe then your home is not fit for human habitation. Continue to see your next steps.
+field: waterUnsafe
+---
+question: |
+  We recomment you talk to your landlord and notify them before the leak causes any damage.
+field: tellLandlordLeak
+---
+question: |
+  Has the leak caused damage to your personal belongings?
+field: personalBelongingDamage
+yesno: personalBelongingDamage
+
+---
+question: |
+  Has the leak caused structural damage to the property?
+field: structuralDamage
+yesno: structuralDamage
+
+---
+question: |
+  Who was responsible for the leak?
+field: checkResponsible
+choices: 
+  - Landlord: neighbour
+  - Neighbour: landlord
+---
+question: |
+  You may be able to bring a claim against ${checkResponsible}, although this should be a last resort. If you have contents insurance you may be able to make a claim using this. Continue for next steps.
+field: claimForRepairs
+
+---
+question: |
+  Your landlord is normally responsible for repairing structural damage to your property.
+field: landlordRepairs
+
+---
+question: |
+  Your landlord must keep the heating water in working order. You are however responsible for daily maintenance.
+field: landlordHeatingResponsible
+
+---
+question: |
+  Have you caused damage to the water heater through maltreatment?
+subquestion: |
+  Maltreatment might mean that you have not sufficiently kept the water heater repaired OR that you have intentially damaged it.
+field: isTenantResponsible
+yesno: isTenantResponsible
+---
+question: |
+  You will likely be responsible for any repairs.
+field: tenantResponsible
+
+---
+question: |
+  Is the water heater completely not working?
+field: waterBroken
+yesno: waterBroken
+
+---
+question: |
+  There are some signs of a broken water heater. Keep on the lookout for:
+  * Water that won't heat up properly
+  * Water that doesn't heat up at all
+  * Showers with no hot water or are barely warm
+field: signsWaterBroken
+
+---
+question: |
+  If the problem is not urgent, then you should write to your landlord. If it is urgent, for example the middle of winter, then you should call them and document the call.
+field: contactLandlord
+
+---
+question: |
+  The lack of utilities could be considered a hazard. The landlord must repair this as they are responsible for keeping the property in repair and free from hazards.
+field: lackOfUtility
+
+---
+#ADVICE GENERATION BLOCK
+event: generateAdvice
+question: Please find below a summary of your advice from openTenancy.
+attachments:
+  - name: openTenancy Advice
+    filename: openTenancyAdvice
+    valid formats:
+      - pdf    
+    content: |
+      [BOLDCENTER] Summary of openTenancy Advice
