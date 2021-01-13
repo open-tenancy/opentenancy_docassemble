@@ -48,7 +48,7 @@ yesno: furtherRepairsIssues
 
 ---
 question: |
-  Repairs were not done properly. Advice for how to deal.
+  Repairs were not done properly. The following is some advice that can help you in figuring this out.
 field: improperRepairs
 yesno: improperRepairs
 
@@ -56,4 +56,13 @@ yesno: improperRepairs
 question: |
   Since you have no further issues with repairs, would you like a pdf summarising your advice?
 field: noFurtherIssues
-
+---
+#EVENT BLOCK
+event: generateAdvice
+question: Please find below a summary of your interview from openTenancy.
+attachments:
+  - name: openTenancy Summary
+    filename: openTenancySummary
+    docx template file: test1.docx
+    valid formats:
+      - pdf    
