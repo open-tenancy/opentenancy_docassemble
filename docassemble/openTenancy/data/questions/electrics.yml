@@ -16,12 +16,15 @@ metadata:
 use objects: True
 objects from file:
   - repairAdvice: repairadvice.json
+  - questionFile: electricquestions.json
 ---
 #LOGIC BLOCK
 mandatory: True
 code: |
+  
   if electricIntro == 'appliance':
     #topic = "electrical appliance"
+    
     if checkResponsibility == 'landlordOwner':
        reportingRepairsStart
        generateAdvice
@@ -38,6 +41,11 @@ code: |
      councilStart
      generateAdvice
      electricsStart = True
+   
+  #define our dictionary Q and A for the document at the end
+  questionFile["Does this relate to an appliance or wiring?"] = electricsIntro
+  if electricsIntro == "appliance":
+    questionFile["Was the appliance supplied by the landlord, or did you bring it to your home?"] = checkResponsibility
 ---
 #QUESTION BLOCK
 question: |
@@ -125,9 +133,8 @@ question: Please find below a summary of your interview from openTenancy.
 attachments:
   - name: openTenancy Summary
     filename: openTenancySummary
+    docx template file: test1.docx
     valid formats:
       - pdf    
-    content: |
-      [BOLDCENTER] Summary of openTenancy Advice
-      
+   
       
