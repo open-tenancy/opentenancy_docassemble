@@ -16,6 +16,7 @@ metadata:
 use objects: True
 objects from file:
   - repairAdvice: repairadvice.json
+  - questionFile: pestquestions.json
 ---
 #LOGIC BLOCK
 mandatory: True
@@ -110,15 +111,14 @@ question: |
   If you believe this was not your fault, you should contact your landlord and discuss how to find a proper resolution to the problem, as well as review the tenancy agreement.
 field: contactLandlord
 ---
-#ADVICE GENERATION BLOCK
+#EVENT BLOCK
 event: generateAdvice
-question: Please find below a summary of your advice from openTenancy.
+question: Please find below a summary of your interview from openTenancy.
 attachments:
-  - name: openTenancy Advice
-    filename: openTenancyAdvice
+  - name: openTenancy Summary
+    filename: openTenancySummary
+    docx template file: test1.docx
     valid formats:
       - pdf    
-    content: |
-      [BOLDCENTER] Summary of openTenancy Advice
       
   
