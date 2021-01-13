@@ -1,0 +1,73 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+---
+mandatory: True
+code: |
+  if toldLandlord:
+    if deadlinePassed:
+      #landlord shouldve responded by now
+      landlordLate = True # set landlord late flag
+      affectingHealth = landlordNotResponded
+      if affectingHealth:
+        #tell them to esculate to council
+        esculateToCouncil
+    else:
+      landlordWait = True #need to wait for landlord flag
+      landlordAwaitResponse
+  else:
+    #tell landlord
+    landlordTell = True
+    landlordInformIssue
+  reportingRepairsStart = True
+---
+#set the topic name so we can dynamically arrange what the repair is for
+question: |
+  Have you told your landlord about your repairs request?
+field: toldLandlord
+yesno: toldLandlord
+---
+question: |
+  When did you talk to your landlord about your repairs?
+fields: 
+  - Date: dateCheck
+    datatype: date
+---
+question: |
+  Your landlord should have responded by now. If the problem is affecting your health or constitutes a hazard, and your landlord is not responding to your request for repairs, you can go to the council or Citizen's Advice Bureau.
+subquestion: |
+  Is the issue affecting your health?
+field: landlordNotResponded
+yesno: landlordNotResponded
+---
+question: |
+  You should wait for your landlord to respond. If they do not respond to your request within 14 days of you contacting them, it is time for next steps.
+field: landlordAwaitResponse
+---
+question: |
+  You must tell your landlord so that they know there is an issue to address. We recomment writing a formal letter to your landlord and submit the request for repairs. You must then wait a reasonable time for the landlord to respond - usually this means up to 14 days. 
+field: landlordInformIssue
+---
+question: |
+  Since the issue is affecting your health and your landlord has not responded , you should write a letter to the council department of environmental health. 
+subquestion: |
+  If you have a tenancy that started after 1 October 2015 then you are protected from being evicted by your landlord if you filed a complaint about repairs not being completed, and they did not respond with a good response within 14 days.
+field: esculateToCouncil
+---
+code: |
+  responseDeadline = dateCheck.plus(days = 14)
+  today = today()
+  if today > responseDeadline: 
+    deadlinePassed = True
+  else: 
+    deadlinePassed = False
