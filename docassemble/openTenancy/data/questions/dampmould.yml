@@ -12,44 +12,57 @@ metadata:
      https://www.opentenancy.co.uk
   show login: False
 ---
+use objects: True
+objects from file:
+  - dampmouldq: dampmouldquestions.json
+  - repairAdvice: repairadvice.json
+---
 #LOGIC BLOCK
 mandatory: True
 code: |  
-  if landlordTold: #have you informed landlord of issue
+  if dampIntro: #have you informed landlord of issue
     if landlordResponded: #landlord responded
       if landlordAgreedToFix == True: #all is well landlord will fix
         waitForLandlord
-        command('exit')
+        dampStart = "True"
       else: 
         if healthIsAffected:
           if contactedCouncil:
             nextSteps
-            councilDoc
+            generateAdvice
+            dampStart = "True"
         else:
           nextSteps
-          councilDoc
+          generateAdvice
+          dampStart = "True"
     else: #landlord not responded
       check_date
       if deadline_passed:
         if healthIsAffected: 
           if contactedCouncil: 
             nextSteps
-            councilDoc
+            generateAdvice
+            dampStart = "True"
         else: 
           if tenantIsResponsible:
             if health: 
               if contactedCouncil: 
                 nextSteps
-                councilDoc
+                generateAdvice
+                dampStart = "True"
           else: 
-            if councilContactDoc:
-              councilDoc
+            generateAdvice
+            dampStart = "True"
       else:
-        deadline_upcoming 
-
+        deadline_upcoming
+        dampStart = "True"
   else:
     reportToLandlord
-    command('exit') #
+    dampStart = "True"
+    
+---
+include: 
+  - reportingRepairs.yml
 ---
 #QUESTION BLOCK
 question: |
@@ -58,9 +71,9 @@ field: landlordResponded
 yesno: landlordResponded
 ---
 question: |
-  Have you told your landlord about your damp or mould issue? 
-field: landlordTold
-yesno: landlordTold
+  You have an issue with damp or mould. This is caused by excess moisture in the home and can be caused by a variety of problems, and can cause health issues. It is important to get this repaired soon.
+field: dampIntro
+yesno: dampIntro
 ---
 question: |
   In order to ensure that your landlord is aware that there is a damp or mould issue, it is suggested that you first contact your landlord to let them know. 
@@ -143,33 +156,17 @@ question: |
   We would recommend that you contact the Environmental Health department at your local council since the mould is affect your health and you have attempted to contact your landlord and have it fixed, as well as waited the necessary 14 days. 
 subquestion: |
   Would you like a document summarising your request?
-yesno: councilContactDoc
----
-mandatory: True
-code: |
-  if councilContactDoc: 
-    councilDoc
-  else: 
-    all_done
+yesno: generateAdvice
 ---
 #EVENT BLOCK
-event: councilDoc
-question: Please find below a summary of your advice from openTenancy.
+event: generateAdvice
+question: Please find below a summary of your interview from openTenancy.
 attachments:
-  - name: openTenancy Advice
-    filename: openTenancyAdvice
+  - name: openTenancy Summary
+    filename: openTenancySummary
     valid formats:
       - pdf    
     content: |
       [BOLDCENTER] Summary of openTenancy Advice
-  
-  #repairsIntroText
-  #repairTitle
-  #if landlord answers
       
-      
-mandatory: True
----
-field: all_done
-code: |
-  command('exit')
+     
