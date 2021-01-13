@@ -1,0 +1,51 @@
+#METADATA BLOCK
+metadata:
+  title: |
+    openTenancy
+  short title: |
+    tenancy advice
+  exit label: |
+    Back to Home Page
+  exit link: |
+     https://www.opentenancy.co.uk
+  exit url: |
+     https://www.opentenancy.co.uk
+  show login: False
+---
+#LOGIC BLOCK
+mandatory: True
+code: | 
+  if landlordLate == True: #only execute if landlord hasn't responded
+    
+    if writeWarningLetter:  # ask if they wrote a letter
+      #if they wrote letter and no response, esculate to council
+      hasWrittenToLandlord
+     
+      writeToCouncil = True #write to council
+      
+      
+      councilStart = True
+      
+    else:
+      #write a letter
+      hasNotWrittenToLandlord
+      
+      writeToLandlord = True #write to landlord
+      councilStart = True
+---
+#QUESTION BLOCK
+question: | 
+  Before contacting the local council, we recommend writing your landlord a letter before you do. 
+subquestion: | 
+  You can informing your landlord that you intend to take the matter to the council, and that they have a legal responsibility as a landlord to repair any faulty electrical wiring. Have you already sent a letter to your landlord like this? 
+field: writeWarningLetter
+yesno: writeWarningLetter
+---
+question: |
+  If your landlord has not responded to your letter, you should contact the council department of environmental health. 
+field: hasWrittenToLandlord
+
+---
+question: |
+  You can informing your landlord that you intend to take the matter to the council and wait for a response. 
+field: hasNotWrittenToLandlord
