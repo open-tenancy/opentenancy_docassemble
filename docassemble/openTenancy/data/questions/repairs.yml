@@ -11,36 +11,32 @@ metadata:
      https://www.opentenancy.co.uk
   show login: False
 ---
-
 mandatory: True
 code: |
-  testingVariablePass
-
-  if repairs_start: #this section needs to be modified, not very DRY atm
+  if repairs_start: 
     if sevenyears: 
       if repairtype == 'damp':
-        landlordTold
+        dampStart
       if repairtype == 'electrics': 
         electricsStart
       if repairtype == 'structural':
         structuralStart
+      if repairtype == "pests":
+        pestStart
+      if repairtype == "heating":
+        heatingStart
+      if repairtype == "decoration":
+        decorationStart
+      if repairtype == "furniture":
+        furnitureStart
+      if repairtype == "other":
+        otherStart
+      if repairtype == "refuseRepairs":
+        refuseRepairsStart
     else: 
       sorry
   else:
-    if verbal_tenancy:
-      if sevenyears:
-        if repairtype == 'damp':
-          landlordTold
-        if repairtype == 'electrics': 
-          electricsStart
-        if repairtype == "structural":
-          structuralStart
-      else:
-        sorry
----
-question: |
-  testing variables
-field: testingVariablePass
+    sorry
 ---
 terms:
   tenancy agreement: |
@@ -94,8 +90,16 @@ choices:
   - FURNITURE : furniture
   - DECORATION : decoration
   - OTHER; Any other type of repair : other
+  - REFUSED REPAIRS; What are your options if your landlord refuses to carry out the repairs : refuseRepairs
 ---
 include: 
   - dampmould.yml
   - electrics.yml
- 
+  - pests.yml
+  - structural.yml
+  - heating.yml
+  - decoration.yml
+  - other.yml
+  - water.yml
+  - furniture.yml
+  - refusingRepairs.yml
