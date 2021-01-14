@@ -13,7 +13,6 @@ metadata:
   show login: False
   
 ---
-#EVENT BLOCK
 use objects: True
 objects from file:
   - repairAdvice: repairadvice.json
@@ -87,5 +86,3 @@ attachments:
     docx template file: test1.docx
     valid formats:
       - pdf   
-      
-      
