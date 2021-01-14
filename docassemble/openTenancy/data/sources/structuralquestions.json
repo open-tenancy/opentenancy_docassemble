@@ -1,5 +1,8 @@
 {
-  "Did you or the guests damage the exterior in any way either willingly or not? ":"",
-  "What does your structural problem or query relate to?":"",
-  "Is your home unfit for human habitation OR is it unsafe to live in?":""
+  "What is the nature of your water problem?": "",
+  "Has the leak caused damage to your personal belongings?": "",
+  "Has the leak caused structural damage to the property?": "",
+  "Who was responsible for the leak?": "",
+  "Have you caused damage to the water heater through maltreatment?": "",
+  "Is the water heater completely not working?": ""
 }
