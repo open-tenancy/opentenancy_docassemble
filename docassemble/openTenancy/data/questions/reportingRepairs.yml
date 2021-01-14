@@ -15,6 +15,7 @@ metadata:
 mandatory: True
 code: |
   if toldLandlord:
+    landlordTell = True
     if deadlinePassed:
       #landlord shouldve responded by now
       landlordLate = True # set landlord late flag
@@ -62,7 +63,12 @@ question: |
   Since the issue is affecting your health and your landlord has not responded , you should write a letter to the council department of environmental health. 
 subquestion: |
   If you have a tenancy that started after 1 October 2015 then you are protected from being evicted by your landlord if you filed a complaint about repairs not being completed, and they did not respond with a good response within 14 days.
-field: esculateToCouncil
+field: esculateToCouncil 
+
+---
+question: |
+  Is the problem affecting your health?
+field: affectingHealth
 ---
 code: |
   responseDeadline = dateCheck.plus(days = 14)
