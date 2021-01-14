@@ -33,9 +33,12 @@ mandatory: True
 question: |
   # Welcome to openTenancy!
 subquestion: |
+  ### First, we'll start with the legal stuff. 
   [FILE opentenancy.png, 60%]
-  ### Your use of this system does not mean that you have a lawyer.
+  ###### Any guidance found on openTenancy does not contain any binding legal advice, and answering this interview does not mean that you have a client-solicitor relationship or a lawyer. All information found in this document should be used for research and informative purposes only, and should not be used as the basis for taking legal action. We would recommend that you seek legal advice prior to taking any legal action. 
+  #### To summarise - openTenancy does not provide any legal advice, and answering this questionnaire does not mean that you have a lawyer. 
   ### Do you understand this?
+  
 yesno: understands
 ---
 mandatory: True
@@ -66,11 +69,19 @@ code: |
   if welcome_question == 'repairs':
     repairs_start
   elif welcome_question == 'other':
-    repairs_start
+    other_issue
 ---
 question: |
-  The advice from openTenancy does not consitute binding legal advice, nor does openTenancy act as a lawyer.
-subquestion: However, what we do instead is help you sift through all the available information. If you're interested in finding out more about us, please go to our About page. Or if you would prefer, you can start the interview again.
+  We're so excited to keep expanding openTenancy, unfortunately we do not have issue yet. 
+subquestion: We'd love if you filled out the feedback form below with your suggested issue, or visit our Github and try and tackle it yourself. 
+event: other_issue
+choices:
+  - Start Again: restart
+  - Exit: exit
+---
+question: |
+  The advice from openTenancy does not consitute binding legal advice, and using openTenancy does not mean that you have a lawyer. 
+subquestion: However, what we do instead is help you sift through all the available information for research purposes only. What we're hoping to do is help you to understand your rights in a clear and accessible way. If you're interested in finding out more about us, please go to our FAQ page. Or if you understand that the information on our website is not legal advice, you can choose to restart the interview. 
 event: legal_clarity
 choices:
   - Start Again: restart
