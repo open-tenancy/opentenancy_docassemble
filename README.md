@@ -11,5 +11,7 @@ we are absolutely open to docassemble contributions, for more information on sty
 ## built with 
 [docassemble](https://github.com/jhpyle/docassemble): [license](https://github.com/jhpyle/docassemble/blob/master/LICENSE.txt). 
 
+Copyright (c) Amy Conroy, Anastasia Shmyglya | [License](https://github.com/open-tenancy/opentenancy_docassemble/blob/develop/LICENSE)
+
 
 
